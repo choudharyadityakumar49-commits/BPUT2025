@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Reports</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+      padding: 20px;
+    }
+    header {
+      background: #9c0711;
+      color: white;
+      padding: 15px;
+      display: flex;
+      /* align-items: center;
+      justify-content: space-between; */
+      gap:30px;
+      margin-top:-20px;
+      margin-left:-20px;
+      margin-right:-20px
+    }
+
+    
+    h2 { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <i class="bi bi-arrow-left" id="back"></i>
+    <h1>View Reports</h1>
+  </header>
+
+  <div id="content"></div>
+
+  <script>
+    document.getElementById('back').addEventListener('click', () => {
+      window.history.back();
+    });
+
+    // Get project index from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const index = urlParams.get('index');
+    const projects = JSON.parse(localStorage.getItem('projects')) || [];
+    const project = projects[index];
+
+    const content = document.getElementById('content');
+    if (project) {
+      content.innerHTML = `
+        <h2>${project.name}</h2>
+        <p><strong>Location:</strong> ${project.location}</p>
+        <p><strong>Employee:</strong> ${project.employee}</p>
+        <p><strong>Progress:</strong> ${project.progress}%</p>
+        <hr>
+        <p>Project-specific details or reports will appear here.</p>
+      `;
+    } else {
+      content.innerHTML = `<p>Project not found!</p>`;
+    }
+  </script>
+</body>
+</html>
